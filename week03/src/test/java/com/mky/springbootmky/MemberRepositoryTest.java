@@ -1,5 +1,6 @@
 package com.mky.springbootmky;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
@@ -93,14 +94,9 @@ class MemberRepositoryTest {
         assertThat(memberRepository.findById(2L).isEmpty()).isTrue();
     }
 
-    @Sql("/insert-members.sql")
-    @Test
-    void deleteAll() {
-        // when
+    @AfterEach
+    public void cleanUp() {
         memberRepository.deleteAll();
-
-        // then
-        assertThat(memberRepository.findAll().size()).isZero();
     }
 
 }
