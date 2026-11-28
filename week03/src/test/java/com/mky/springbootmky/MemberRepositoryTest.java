@@ -94,6 +94,19 @@ class MemberRepositoryTest {
         assertThat(memberRepository.findById(2L).isEmpty()).isTrue();
     }
 
+    @Sql("/insert-members.sql")
+    @Test
+    void update() {
+        // given
+        Member member = memberRepository.findById(2L).get();
+
+        // when
+        member.changeName("BC");
+
+        // then
+        assertThat(memberRepository.findById(2L).get().getName()).isEqualTo("BC");
+    }
+
     @AfterEach
     public void cleanUp() {
         memberRepository.deleteAll();
